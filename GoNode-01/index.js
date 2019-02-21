@@ -15,16 +15,21 @@ app.set('view engine', 'njk')
 const users = ['Diego', 'Robson', 'Caxandre', 'Caxa']
 
 app.get('/', (req, res) => {
-  return res.render('list', { users })
+  return res.render('form', { users })
 })
 
-app.get('/new', (req, res) => {
+app.get('/form', (req, res) => {
   return res.render('new')
 })
 
-app.post('/create', (req, res) => {
-  users.push(req.body.user)
-  return res.redirect('/')
+app.post('/check', (req, res) => {
+  let age = req.body.age
+
+  if (age >= 18) {
+    return res.render('major', { age })
+  } else {
+    return res.render('minor', { age })
+  }
 })
 
 app.listen(3000)
